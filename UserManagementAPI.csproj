@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="UserManagementAPI.Tests\**" />
+    <Content Remove="Controllers\**" />
+    <Content Remove="UserManagementAPI.Tests\**" />
+    <EmbeddedResource Remove="Controllers\**" />
+    <EmbeddedResource Remove="UserManagementAPI.Tests\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="UserManagementAPI.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.3" />
+    <PackageReference Include="StackExchange.Redis" Version="2.8.31" />
+  </ItemGroup>
+
+</Project>
