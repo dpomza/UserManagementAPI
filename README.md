@@ -52,3 +52,5 @@
 ```sh
 dotnet test
 ```
+
+### Using the requests.http file
