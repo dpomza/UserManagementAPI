@@ -41,3 +41,14 @@
    docker run --name my-redis -d -p 6379:6379 redis
    ```
    This command pulls the latest Redis image, runs it in a container named , and maps port 6379 from the container to your local machine.
+
+
+# Testing
+
+### Using the UserManagementAPITest project
+
+* From Visual Studio: You can use the Test Explorer (available from Test menu) or directly select Run All Tests
+* From Visual Studio Code (and Visual Studio):
+```sh
+dotnet test
+```
