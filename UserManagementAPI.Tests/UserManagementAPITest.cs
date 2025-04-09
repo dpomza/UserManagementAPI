@@ -5,15 +5,14 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 using Microsoft.AspNetCore.Mvc.Testing;
-using UserManagementAPI;
 
 namespace UserManagementAPI.Tests
 {
-    public class UserManagementAPITests : IClassFixture<WebApplicationFactory<Program>>
+    public class ExtendedUserManagementAPITests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
 
-        public UserManagementAPITests(WebApplicationFactory<Program> factory)
+        public ExtendedUserManagementAPITests(WebApplicationFactory<Program> factory)
         {
             // Create an HttpClient to interact with the in-memory test server.
             _client = factory.CreateClient();
@@ -27,12 +26,35 @@ namespace UserManagementAPI.Tests
         }
 
         [Fact]
+        public async Task HealthEndpoint_ReturnsOk()
+        {
+            // Act: Call the health check endpoint.
+            var response = await _client.GetAsync("/health");
+
+            // Assert: Expect a 200 OK status when the API (and its dependencies) are healthy.
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task RequestCorrelationId_IsPresent_InResponse()
+        {
+            // Arrange: Ensure valid authentication.
+            AddValidAuthHeader();
+
+            // Act: Make a GET request to any endpoint (e.g., /users).
+            var response = await _client.GetAsync("/users");
+
+            // Assert: Verify that the 'X-Correlation-ID' header is present in the response.
+            Assert.True(response.Headers.Contains("X-Correlation-ID"));
+        }
+
+        [Fact]
         public async Task GetUsers_ReturnsUnauthorized_WithoutToken()
         {
             // Ensure no Authorization header is present.
             _client.DefaultRequestHeaders.Authorization = null;
 
-            // Act
+            // Act: Attempt to retrieve users.
             var response = await _client.GetAsync("/users");
 
             // Assert: Expect 401 Unauthorized.
@@ -45,7 +67,7 @@ namespace UserManagementAPI.Tests
             // Arrange: Add valid token.
             AddValidAuthHeader();
 
-            // Act
+            // Act: Retrieve users.
             var response = await _client.GetAsync("/users");
 
             // Assert: Expect 200 OK.
@@ -55,7 +77,7 @@ namespace UserManagementAPI.Tests
         [Fact]
         public async Task CreateUser_ReturnsCreatedAndThenGetUser()
         {
-            // Arrange:
+            // Arrange: Add valid token.
             AddValidAuthHeader();
             var newUser = new
             {
@@ -65,7 +87,7 @@ namespace UserManagementAPI.Tests
 
             var content = new StringContent(JsonSerializer.Serialize(newUser), Encoding.UTF8, "application/json");
 
-            // Act: Create a new user (POST).
+            // Act: Create a new user via POST.
             var createResponse = await _client.PostAsync("/users", content);
 
             // Assert: Expect 201 Created.
@@ -77,12 +99,12 @@ namespace UserManagementAPI.Tests
                 createdResponseContent,
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
             Assert.NotNull(createdUser);
-            Assert.True(createdUser!.Id > 0);  // Confirm a valid ID was assigned.
+            Assert.True(createdUser!.Id > 0);
 
             // Act: Retrieve the user using GET /users/{id}.
             var getResponse = await _client.GetAsync($"/users/{createdUser.Id}");
 
-            // Assert: Expect 200 OK.
+            // Assert: Expect 200 OK and the user data to match.
             Assert.Equal(HttpStatusCode.OK, getResponse.StatusCode);
             var getResponseContent = await getResponse.Content.ReadAsStringAsync();
             var retrievedUser = JsonSerializer.Deserialize<User>(
@@ -95,7 +117,7 @@ namespace UserManagementAPI.Tests
         }
     }
 
-    // Minimal version of the User record (must match your API model).
+    // Minimal User model definition for testing (if not referenced from your main API project).
     public record User
     {
         public int Id { get; set; }
