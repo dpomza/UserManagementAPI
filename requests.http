@@ -1,5 +1,13 @@
-### Create a new user
-POST http://localhost:5292/users
+###############################################################################
+# Health Check
+###############################################################################
+GET https://localhost:7176/health
+Content-Type: application/json
+
+###############################################################################
+# Create a new user
+###############################################################################
+POST https://localhost:7176/users
 Authorization: Bearer mysecrettoken
 Content-Type: application/json
 
@@ -8,18 +16,24 @@ Content-Type: application/json
   "email": "jimmy.cruz22@gmail.com"
 }
 
-### Get all users
-GET http://localhost:5292/users
+###############################################################################
+# Get all users
+###############################################################################
+GET https://localhost:7176/users
 Authorization: Bearer mysecrettoken
 Content-Type: application/json
 
-### Get a user by ID 
-GET http://localhost:5292/users/1
+###############################################################################
+# Get a user by ID 
+###############################################################################
+GET https://localhost:7176/users/1
 Authorization: Bearer mysecrettoken
 Content-Type: application/json
 
-### Update an existing user 
-PUT http://localhost:5292/users/1
+###############################################################################
+# Update an existing user 
+###############################################################################
+PUT https://localhost:7176/users/1
 Authorization: Bearer mysecrettoken
 Content-Type: application/json
 
@@ -28,36 +42,36 @@ Content-Type: application/json
   "email": "luis.doe@example.com"
 }
 
-### Delete a user 
-DELETE http://localhost:5292/users/4
+###############################################################################
+# Delete a user 
+###############################################################################
+DELETE https://localhost:7176/users/4
 Authorization: Bearer mysecrettoken
 
-### Search for users by name
-GET http://localhost:5292/users/search?name=ru
-Authorization: Bearer mysecrettoken
-Content-Type: application/json
-
-### FOR TESTING PURPOSES
 ###############################################################################
-# Get all users without token
-# This request should return 401 Unauthorized.
+# Search for users by name
 ###############################################################################
-GET http://localhost:5292/users
-Content-Type: application/json
-
-###############################################################################
-# Get all users with a valid token
-# This request should return 200 OK.
-###############################################################################
-GET http://localhost:5292/users
+GET https://localhost:7176/users/search?name=ru
 Authorization: Bearer mysecrettoken
 Content-Type: application/json
 
 ###############################################################################
-# Create a new user
-# This POST should return 201 Created with the user data.
+# For Testing Purposes
 ###############################################################################
-POST http://localhost:5292/users
+# Get all users without token (should return 401 Unauthorized)
+GET https://localhost:7176/users
+Content-Type: application/json
+
+###############################################################################
+# Get all users with a valid token (should return 200 OK)
+GET https://localhost:7176/users
+Authorization: Bearer mysecrettoken
+Content-Type: application/json
+
+###############################################################################
+# Create a new user (should return 201 Created with user data)
+###############################################################################
+POST https://localhost:7176/users
 Authorization: Bearer mysecrettoken
 Content-Type: application/json
 
@@ -67,18 +81,16 @@ Content-Type: application/json
 }
 
 ###############################################################################
-# Get user by ID
-# Replace "1" with the actual user ID returned from the POST request.
+# Get user by ID (replace "1" with the actual user ID returned from the POST)
 ###############################################################################
-GET http://localhost:5292/users/1
+GET https://localhost:7176/users/1
 Authorization: Bearer mysecrettoken
 Content-Type: application/json
 
 ###############################################################################
-# Update an existing user
-# Replace "1" with the actual user ID.
+# Update an existing user (replace "1" with the actual user ID)
 ###############################################################################
-PUT http://localhost:5292/users/1
+PUT https://localhost:7176/users/1
 Authorization: Bearer mysecrettoken
 Content-Type: application/json
 
@@ -88,17 +100,15 @@ Content-Type: application/json
 }
 
 ###############################################################################
-# Delete a user by ID
-# Replace "1" with the appropriate user ID.
+# Delete a user by ID (replace "1" with the appropriate user ID)
 ###############################################################################
-DELETE http://localhost:5292/users/1
+DELETE https://localhost:7176/users/1
 Authorization: Bearer mysecrettoken
 Content-Type: application/json
 
 ###############################################################################
-# Search users by name (partial match)
-# Should return 200 OK and a filtered list of users.
+# Search for users by name (partial match)
 ###############################################################################
-GET http://localhost:5292/users/search?name=Test
+GET https://localhost:7176/users/search?name=Test
 Authorization: Bearer mysecrettoken
 Content-Type: application/json
