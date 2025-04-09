@@ -1,4 +1,4 @@
-# User Management API
+﻿# User Management API
 ### This project uses Redis. To be able to test this here is the list of things to do:
 
 ## Install Redis:
@@ -55,3 +55,20 @@ dotnet test
 ```
 
 ### Using the requests.http file
+
+
+# Project Structure
+
+/UserManagementAPI
+├── Program.cs
+├── /Models
+│     └── User.cs
+├── /Routes
+│     └── UserRoutes.cs
+├── /Middleware
+│     ├── AuthenticationMiddleware.cs
+│     ├── LoggingMiddleware.cs
+│     └── CorrelationIdMiddleware.cs
+├── /Validators
+│     └── EmailValidator.cs
+└── YourProject.csproj
