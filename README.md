@@ -6,7 +6,8 @@
 ### 1. Installing Redis Locally
   ### a. Windows: 
    Although Redis is originally built for Linux, you have several options on Windows:
-    * Use WSL: If you have Windows Subsystem for Linux (WSL) installed, you can follow the standard Linux instructions. For example:
+   
+  * Use WSL: If you have Windows Subsystem for Linux (WSL) installed, you can follow the standard Linux instructions. For example:
     
    ```sh
    sudo apt update
