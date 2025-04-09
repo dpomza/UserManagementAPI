@@ -1,9 +1,9 @@
 ﻿# User Management API
 ### This project uses Redis. To be able to test this here is the list of things to do:
 
-## Install Redis:
+# Install Redis:
 
-### 1. Installing Redis Locally
+## 1. Installing Redis Locally
   ### a. Windows: 
    Although Redis is originally built for Linux, you have several options on Windows:
    
@@ -36,14 +36,14 @@
    sudo systemctl start redis-server.service
    ```
 
-### 2. Using Docker
+## 2. Using Docker
    If you have Docker installed, you can quickly run Redis with the following command:
    ```sh
    docker run --name my-redis -d -p 6379:6379 redis
    ```
    This command pulls the latest Redis image, runs it in a container named , and maps port 6379 from the container to your local machine.
 
-
+#
 # Testing
 
 ### Using the UserManagementAPITest project
@@ -56,9 +56,9 @@ dotnet test
 
 ### Using the requests.http file
 
-
+#
 # Project Structure
-
+```
 /UserManagementAPI
 ├── Program.cs
 ├── /Models
@@ -71,4 +71,9 @@ dotnet test
 │     └── CorrelationIdMiddleware.cs
 ├── /Validators
 │     └── EmailValidator.cs
-└── YourProject.csproj
+├── /UserManagementAPI.Tests
+│     ├── UserManagementAPITest.cs
+│     └── UserManagementAPI.Tests.csproj
+└── /UserManagementAPI.csproj
+```
+
